@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.Data;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -90,6 +91,12 @@ public class TmpController {
         return "basic/literal";
     }
 
+    @GetMapping("operation")
+    public String operation(Model model) {
+        model.addAttribute("nullData", null);
+        model.addAttribute("data", "data");
+        return "basic/operation";
+    }
 
     @Component("tmpBean")
     static class tmpBean {
