@@ -1,9 +1,14 @@
 package basic.thymeleaf.tmp;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -48,8 +53,31 @@ public class TmpController {
         return "basic/variable";
     }
 
+    @GetMapping("/basic-objects")
+    public String basicObjects(
+            Model model,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            HttpSession session
+    ) {
+
+        model.addAttribute("request", request);
+        model.addAttribute("response", response);
+        model.addAttribute("servletContext", request.getServletContext());
+        session.setAttribute("sessionData", "session Data");
+
+        return "basic/basic-objects";
+    }
+
+    @Component("tmpBean")
+    static class tmpBean {
+        public String tmp(String data) {
+            return "tmp" + data;
+        }
+    }
+
     @Data
-    static class User{
+    static class User {
         private String username;
         private int age;
 
