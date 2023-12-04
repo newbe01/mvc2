@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> URL LINK</h1>
+<ul>
+  <li> <a th:href="@{/tmp}">basic url</a></li>
+  <li> <a th:href="@{/tmp(paramA=${param1}, paramB=${param2})}">tmp query param</a></li>
+  <li> <a th:href="@{/tmp/{param1}/{param2}(param1=${param1}, param2=${param2})}">path variable</a></li>
+  <li> <a th:href="@{|/tmp/${param1}/${param2}|}">path variable</a></li>
+  <li> <a th:href="@{/tmp/{param1}(param1=${param1}, param2=${param2})}">path variable + query parameter</a></li>
+  <li> <a th:href="@{|/tmp/${param1}?param2=${param2}|}">path variable + query parameter</a></li>
+
+</ul>
+
+</body>
+</html>
