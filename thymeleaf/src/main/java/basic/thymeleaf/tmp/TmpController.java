@@ -134,6 +134,14 @@ public class TmpController {
         return "basic/block";
     }
 
+    @GetMapping("/javascript")
+    public String javascript(Model model) {
+        model.addAttribute("user", new User("test-\"User", 450));
+
+        addUsers(model);
+        return "basic/javascript";
+    }
+
     @Component("tmpBean")
     static class tmpBean {
         public String tmp(String data) {
