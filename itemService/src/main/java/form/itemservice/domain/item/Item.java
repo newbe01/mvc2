@@ -1,6 +1,8 @@
-package form.itemservice.domain;
+package form.itemservice.domain.item;
 
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Item {
@@ -9,6 +11,14 @@ public class Item {
     private String itemName;
     private Integer price;
     private Integer quantity;
+
+    private Boolean open; // 판매여부
+
+    private List<String> regions; // region
+
+    private ItemType itemType;
+
+    private String deliveryCode;
 
     public Item() {
     }

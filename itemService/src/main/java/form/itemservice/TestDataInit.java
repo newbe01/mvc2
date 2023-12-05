@@ -1,7 +1,7 @@
 package form.itemservice;
 
-import form.itemservice.domain.Item;
-import form.itemservice.domain.ItemRepository;
+import form.itemservice.domain.item.Item;
+import form.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

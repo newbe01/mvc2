@@ -1,4 +1,4 @@
-package form.itemservice.domain;
+package form.itemservice.domain.item;
 
 import org.springframework.stereotype.Repository;
 
