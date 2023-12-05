@@ -128,6 +128,12 @@ public class TmpController {
         return "basic/comments";
     }
 
+    @GetMapping("/block")
+    public String block(Model model) {
+        addUsers(model);
+        return "basic/block";
+    }
+
     @Component("tmpBean")
     static class tmpBean {
         public String tmp(String data) {
