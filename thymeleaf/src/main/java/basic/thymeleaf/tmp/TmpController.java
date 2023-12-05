@@ -122,6 +122,12 @@ public class TmpController {
         return "basic/condition";
     }
 
+    @GetMapping("/comments")
+    public String comments(Model model) {
+        model.addAttribute("data", "data");
+        return "basic/comments";
+    }
+
     @Component("tmpBean")
     static class tmpBean {
         public String tmp(String data) {
