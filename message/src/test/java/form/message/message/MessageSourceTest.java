@@ -20,9 +20,6 @@ class MessageSourceTest {
     @Test
     void getMessage() {
         String result = messageSource.getMessage("hello", null, null);
-        System.out.println(Locale.getDefault());
-        System.out.println(Locale.KOREA);
-        System.out.println(Locale.KOREAN);
         assertThat(result).isEqualTo("hello");
     }
 
@@ -50,13 +47,13 @@ class MessageSourceTest {
     @Test
     void defaultLang() {
 
-        assertThat(messageSource.getMessage("hello", null, null)).isEqualTo("hello");
-        assertThat(messageSource.getMessage("hello", null, Locale.US)).isEqualTo("hello");
+        assertThat(messageSource.getMessage("hello", null, Locale.KOREAN)).isEqualTo("안녕");
+        assertThat(messageSource.getMessage("hello", null, Locale.KOREA)).isEqualTo("안녕");
     }
 
     @Test
-    void koLang() {
+    void enLang() {
 
-        assertThat(messageSource.getMessage("hello", null, Locale.KOREA)).isEqualTo("안녕");
+        assertThat(messageSource.getMessage("hello", null, null)).isEqualTo("hello");
     }
 }
