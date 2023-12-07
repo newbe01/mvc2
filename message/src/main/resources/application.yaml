@@ -2,3 +2,4 @@ spring:
   messages:
     basename: messages
     # ???? ??????
+    fallback-to-system-locale: false
