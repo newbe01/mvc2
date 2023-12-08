@@ -45,7 +45,7 @@ public class ValidationItemControllerV2 {
         return "validation/v2/addForm";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV1(
             @ModelAttribute Item item,
             BindingResult bindingResult,
@@ -66,6 +66,58 @@ public class ValidationItemControllerV2 {
         if (item.getQuantity() == null || item.getQuantity() >= 9999) {
             bindingResult.addError(
                     new FieldError("item", "quantity", "수량은 최대 9999까지")
+            );
+        }
+
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.addError(
+                        new ObjectError("item", "가격 * 수량은 10000 이상, : " + resultPrice)
+                );
+            }
+        }
+
+        // 실패시 입력폼으로
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult : {}", bindingResult);
+            return "validation/v2/addForm";
+        }
+
+        // 성공로직
+
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+    @PostMapping("/add")
+    public String addItemV2(
+            @ModelAttribute Item item,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            Model model
+    ) {
+
+        if (!StringUtils.hasText(item.getItemName())) {
+            bindingResult.addError(new FieldError(
+                    "item", "itemName", item.getItemName(),
+                    false, null, null,  "이름 필수")
+            );
+        }
+
+        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+            bindingResult.addError(
+                    new FieldError("item", "price", item.getPrice(),
+                            false, null, null, "가격은 1000 ~ 100000000 까지")
+            );
+        }
+
+        if (item.getQuantity() == null || item.getQuantity() >= 9999) {
+            bindingResult.addError(
+                    new FieldError("item", "quantity", item.getQuantity(),
+                            false, null, null, "수량은 최대 9999까지")
             );
         }
 
