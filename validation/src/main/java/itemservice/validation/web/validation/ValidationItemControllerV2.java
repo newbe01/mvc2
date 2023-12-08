@@ -48,7 +48,7 @@ public class ValidationItemControllerV2 {
 //    @PostMapping("/add")
     public String addItemV1(
             @ModelAttribute Item item,
-            BindingResult bindingResult,
+            BindingResult bindingResult,    // bindingResult 는 검증객체 바로 다음에 위치해야한다
             RedirectAttributes redirectAttributes,
             Model model
     ) {
@@ -144,13 +144,16 @@ public class ValidationItemControllerV2 {
         return "redirect:/validation/v2/items/{itemId}";
     }
 
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV3(
             @ModelAttribute Item item,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             Model model
     ) {
+
+        log.info("objectName : {}", bindingResult.getObjectName());
+        log.info("target : {}", bindingResult.getTarget());
 
         if (!StringUtils.hasText(item.getItemName())) {
             bindingResult.addError(new FieldError(
@@ -187,6 +190,50 @@ public class ValidationItemControllerV2 {
                                 new Object[]{10000, resultPrice},
                                 "가격 * 수량은 10000 이상, : " + resultPrice)
                 );
+            }
+        }
+
+        // 실패시 입력폼으로
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult : {}", bindingResult);
+            return "validation/v2/addForm";
+        }
+
+        // 성공로직
+
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+    @PostMapping("/add")
+    public String addItemV4(
+            @ModelAttribute Item item,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            Model model
+    ) {
+
+        log.info("objectName : {}", bindingResult.getObjectName());
+        log.info("target : {}", bindingResult.getTarget());
+
+        if (!StringUtils.hasText(item.getItemName())) {
+            bindingResult.rejectValue("itemName", "required");
+        }
+
+        if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() > 1000000) {
+            bindingResult.rejectValue("price", "range", new Object[]{1000, 1000000}, null);
+        }
+
+        if (item.getQuantity() == null || item.getQuantity() >= 9999) {
+            bindingResult.rejectValue("quantity", "max", new Object[]{9999}, null);
+        }
+
+        if (item.getPrice() != null && item.getQuantity() != null) {
+            int resultPrice = item.getPrice() * item.getQuantity();
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
         }
 
