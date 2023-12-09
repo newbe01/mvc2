@@ -12,19 +12,19 @@ import org.hibernate.validator.constraints.ScriptAssert;
 public class Item {
 
 //    @NotNull // 수정 요구사항  적용시 저장할때 문제
-    @NotNull(groups = UpdateCheck.class)
+//    @NotNull(groups = UpdateCheck.class)
     private Long id;
 
 //    @NotBlank(message = "blank X")
-    @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
+//    @NotBlank(groups = {SaveCheck.class, UpdateCheck.class})
     private String itemName;
 
-    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
-    @Range(min = 1000, max = 100000, groups = {SaveCheck.class, UpdateCheck.class})
+//    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
+//    @Range(min = 1000, max = 100000, groups = {SaveCheck.class, UpdateCheck.class})
     private Integer price;
 
-    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
-    @Max(value = 9999, groups = SaveCheck.class) // 수정시 무제한
+//    @NotNull(groups = {SaveCheck.class, UpdateCheck.class})
+//    @Max(value = 9999, groups = SaveCheck.class) // 수정시 무제한
     private Integer quantity;
 
     public Item() {
