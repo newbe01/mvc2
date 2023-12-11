@@ -2,7 +2,9 @@ package login.itemservice.domain.member;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 public class Member {
 
