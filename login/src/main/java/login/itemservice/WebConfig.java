@@ -6,6 +6,7 @@ import login.itemservice.web.filter.LogFilter;
 import login.itemservice.web.filter.LoginCheckFilter;
 import login.itemservice.web.interceptor.LogInterceptor;
 import login.itemservice.web.interceptor.LoginCheckInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,10 +48,13 @@ public class WebConfig implements WebMvcConfigurer {
         return filterRegistrationBean;
     }
 
+    @Autowired
+    LoginCheckFilter loginCheckFilter;
+
 //    @Bean
     public FilterRegistrationBean loginCheckFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new LoginCheckFilter());
+        filterRegistrationBean.setFilter(loginCheckFilter);
         filterRegistrationBean.setOrder(2);
         filterRegistrationBean.setUrlPatterns(Collections.singleton("/*"));
 
