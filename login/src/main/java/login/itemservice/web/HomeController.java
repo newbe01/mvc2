@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import login.itemservice.domain.member.Member;
 import login.itemservice.domain.member.MemberRepository;
+import login.itemservice.web.argumentResolver.Login;
 import login.itemservice.web.session.SessionConst;
 import login.itemservice.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
@@ -74,8 +75,19 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV4(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member, Model model) {
+
+        if (member == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV4ArgumentResolver(@Login Member member, Model model) {
 
         if (member == null) {
             return "home";
