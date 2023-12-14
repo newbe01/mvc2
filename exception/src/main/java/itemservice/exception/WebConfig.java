@@ -3,6 +3,7 @@ package itemservice.exception;
 import itemservice.exception.filter.LogFilter;
 import itemservice.exception.interceptor.LogInterceptor;
 import itemservice.exception.resolver.TmpHandlerExceptionResolver;
+import itemservice.exception.resolver.UserHandlerExceptionResolver;
 import jakarta.servlet.DispatcherType;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,6 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new TmpHandlerExceptionResolver());
+        resolvers.add(new UserHandlerExceptionResolver());
     }
 
     //    @Bean
