@@ -20,6 +20,10 @@ public class ApiExceptionController {
             throw new RuntimeException("wrong member");
         }
 
+        if (id.equals("bad")) {
+            throw new IllegalArgumentException("wrong args");
+        }
+
         return new MemberDto(id, "tmp " + id);
     }
 
