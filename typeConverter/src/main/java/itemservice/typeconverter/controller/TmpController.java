@@ -1,5 +1,6 @@
 package itemservice.typeconverter.controller;
 
+import itemservice.typeconverter.type.IpPort;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,14 @@ public class TmpController {
     public String tmpV2(@RequestParam Integer data) {   // String => int converting
         System.out.println("data = " + data);
         return "OK";
+    }
+
+    @GetMapping("ip-port")
+    public String ipPort(@RequestParam IpPort ipPort) {
+        System.out.println("ipPort.getIp() = " + ipPort.getIp());
+        System.out.println("ipPort.getPort() = " + ipPort.getPort());
+
+        return "ok";
     }
 
 }
